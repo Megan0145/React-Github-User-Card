@@ -7,6 +7,11 @@ const StyledFollowersList = styled.div`
     background-color: white;
     padding: 3rem;
     margin: 3rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    h1 {
+        width: 100%;
+    }
 `;
 
 export default class FollowersList extends React.Component{

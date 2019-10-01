@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Card from "./Card";
 import axios from "axios";
 import FollowersList from "./FollowersList";
+import SearchBar from './Search';
 
 const StyledCardContainer = styled.div`
   width: 80vw;
@@ -15,21 +16,22 @@ const StyledCardContainer = styled.div`
   margin-bottom: 3rem;
 `;
 
-const userApi = "https://api.github.com/users/Megan0145";
-const followersApi = `${userApi}/followers`;
 
 export default class CardContainer extends React.Component {
   constructor() {
     super();
     this.state = {
       cardData: {},
-      followers: []
+      followers: [],
+      searchVal: '',
+      userApi : "http://api.github.com/users/Megan0145",
+
     };
   }
 
   componentDidMount() {
-    const userPromise = axios.get(userApi);
-    const followersPromise = axios.get(followersApi);
+    const userPromise = axios.get(this.state.userApi);
+    const followersPromise = axios.get(`${this.state.userApi}/followers`);
     Promise.all([userPromise, followersPromise]).then(
       ([userAxiosRes, followersAxiosRes]) => {
         this.setState({
@@ -40,9 +42,22 @@ export default class CardContainer extends React.Component {
     ).catch(error => {console.log(error)})
   }
 
+  onSearchChange = event => {
+    this.setState({
+      searchVal: event.target.value
+    })
+  }
+
+  searchUser() {
+    this.setState({
+      userApi: `http://api.github.com/users/${this.state.searchVal}`
+    })
+  }
+
   render() {
     return (
       <StyledCardContainer>
+        <SearchBar searchVal={this.state.searchVal} onSearchChange={this.onSearchChange} searchUser={this.searchUser}/>
         <Card
           cardData={this.state.cardData}
         />

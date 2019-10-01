@@ -7,6 +7,7 @@ const StyledUserCard = styled.div`
     display: flex;
     padding:3rem;
     justify-content: space-between;
+    margin-top: 3rem;
     img{
         width:40%;
     }
@@ -19,17 +20,17 @@ const StyledUserCard = styled.div`
 `;
 
 export default class Card extends React.Component{
-    render(){
-        const { img, name, userName, bio, followers, following, profileLink } = this.props;
+    render(){ 
+        const { cardData } = this.props;
         return (
             <StyledUserCard>
-                <img src={img}/>
+                <img src={cardData.avatar_url}/>
                 <div className='user-details'>
-                <h2>{name}</h2>
-                <p>Username: {userName}</p>
-                <p>Bio: {bio}</p>
-                <p>Followers: {followers}</p>
-                <p>Following; {following}</p>
+                <h2>{cardData.name}</h2>
+                <p>Username: {cardData.login}</p>
+                <p>Bio: {cardData.bio}</p>
+                <p>Followers: {cardData.followers}</p>
+                <p>Following: {cardData.following}</p>
                 </div>
             </StyledUserCard> 
         );

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import FollowerCard from './FollowerCard';
+import Card from './Card';
 
 const StyledFollowersList = styled.div`
     width: 80%;
@@ -21,8 +21,8 @@ export default class FollowersList extends React.Component{
             <h1>Followers</h1>
             {
                 this.props.followers.map(follower => {
-                    return <FollowerCard followerData={follower} />
-
+                    return <Card cardData={follower} />
+                    // console.log(follower)
                 })
 
             }

@@ -35,9 +35,22 @@ export default class CardContainer extends React.Component {
     Promise.all([userPromise, followersPromise]).then(
       ([userAxiosRes, followersAxiosRes]) => {
         this.setState({
-          cardData: userAxiosRes.data,
-          followers: followersAxiosRes.data
-        });
+          cardData: userAxiosRes.data
+          // followers: followersAxiosRes.data
+        })
+        const test = followersAxiosRes.data;
+        test.map(follower => {
+          axios.get(follower.url)
+          .then(res => {
+            console.log(res.data)
+            this.setState(currentState => {
+              return {
+                followers: currentState.followers.concat(res.data)
+              }
+            })
+          })
+          .catch(err => console.log(err))
+        })
       }
     ).catch(error => {console.log(error)})
   }
